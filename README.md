@@ -266,6 +266,7 @@ const { data: yourContract } = useScaffoldContract({
   contractName: "YourContract",
   walletClient,
 });
+
 const setGreeting = async () => {
   // Call the method in any function
   await yourContract?.setGreeting("the greeting here");

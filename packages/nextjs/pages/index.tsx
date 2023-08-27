@@ -1,8 +1,8 @@
 import Link from "next/link";
-// import { useContract, useContractRead } from "@thirdweb-dev/react";
 import type { NextPage } from "next";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { MetaHeader } from "~~/components/MetaHeader";
+import { MdOutlineCampaign } from "react-icons/md";
 
 const Home: NextPage = () => {
   return (
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
             <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
               <BugAntIcon className="h-8 w-8 fill-secondary" />
               <p>
-                Tinker with your smart contract using the{" "}
+                Tinker with our scholar funding contract using the{" "}
                 <Link href="/debug" passHref className="link">
                   Debug Contract
                 </Link>{" "}
@@ -33,9 +33,19 @@ const Home: NextPage = () => {
               </p>
             </div>
             <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
+              <MdOutlineCampaign className="h-8 w-8" />
+              <p>
+                View all campaigns created using the{" "}
+                <Link href="/blockexplorer" passHref className="link">
+                  campaigns
+                </Link>{" "}
+                tab.
+              </p>
+            </div>
+            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
               <MagnifyingGlassIcon className="h-8 w-8 fill-secondary" />
               <p>
-                Explore your local transactions with the{" "}
+                Explore transactions with the{" "}
                 <Link href="/blockexplorer" passHref className="link">
                   Block Explorer
                 </Link>{" "}

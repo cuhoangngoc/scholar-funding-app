@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import Blockies from "react-blockies";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -81,7 +82,7 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
         {ensAvatar ? (
           // Don't want to use nextJS Image here (and adding remote patterns for the URL)
           // eslint-disable-next-line
-          <img
+          <Image
             className="rounded-full"
             src={ensAvatar}
             width={(blockieSizeMap[size] * 24) / blockieSizeMap["base"]}

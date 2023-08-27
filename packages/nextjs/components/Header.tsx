@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { MdOutlineCampaign } from "react-icons/md";
+import { MdOutlineCampaign, MdAppRegistration } from "react-icons/md";
 import { Bars3Icon, BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
@@ -50,6 +50,12 @@ export const Header = () => {
         <NavLink href="/campaigns">
           <MdOutlineCampaign className="h-5 w-5" />
           Campaigns
+        </NavLink>
+      </li>
+      <li>
+        <NavLink href="/registration">
+          <MdAppRegistration className="h-5 w-5" />
+          Registration
         </NavLink>
       </li>
       <li>

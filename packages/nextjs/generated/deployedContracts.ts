@@ -20,7 +20,7 @@ const contracts = {
             },
             {
               inputs: [],
-              name: "ScholarFunding__DeadlineNotInFuture",
+              name: "ScholarFunding__MinimumFundingAmountNotReached",
               type: "error",
             },
             {
@@ -29,53 +29,61 @@ const contracts = {
               type: "error",
             },
             {
+              inputs: [],
+              name: "ScholarFunding__OwnerCannotRegisterAsStudent",
+              type: "error",
+            },
+            {
+              inputs: [],
+              name: "ScholarFunding__ReceiverAlreadyAdded",
+              type: "error",
+            },
+            {
+              inputs: [],
+              name: "ScholarFunding__StudentAlreadyRegistered",
+              type: "error",
+            },
+            {
+              inputs: [],
+              name: "ScholarFunding__StudentNotRegistered",
+              type: "error",
+            },
+            {
+              anonymous: false,
+              inputs: [],
+              name: "CampaignCreated",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [],
+              name: "CampaignFunded",
+              type: "event",
+            },
+            {
+              anonymous: false,
               inputs: [
                 {
-                  internalType: "uint256",
-                  name: "",
-                  type: "uint256",
-                },
-              ],
-              name: "campaigns",
-              outputs: [
-                {
+                  indexed: true,
                   internalType: "address",
-                  name: "owner",
+                  name: "sender",
                   type: "address",
                 },
                 {
+                  indexed: true,
                   internalType: "string",
-                  name: "title",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "description",
-                  type: "string",
-                },
-                {
-                  internalType: "uint256",
-                  name: "target",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "deadline",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "amountCollected",
-                  type: "uint256",
-                },
-                {
-                  internalType: "string",
-                  name: "image",
+                  name: "message",
                   type: "string",
                 },
               ],
-              stateMutability: "view",
-              type: "function",
+              name: "ContractFunded",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [],
+              name: "StudentRegistered",
+              type: "event",
             },
             {
               inputs: [
@@ -124,14 +132,73 @@ const contracts = {
             {
               inputs: [
                 {
+                  internalType: "string",
+                  name: "message",
+                  type: "string",
+                },
+              ],
+              name: "fund",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
+                },
+              ],
+              stateMutability: "payable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
                   internalType: "uint256",
                   name: "_id",
                   type: "uint256",
                 },
               ],
-              name: "donateToCampaign",
+              name: "fundCampaign",
               outputs: [],
               stateMutability: "payable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "getAllStudents",
+              outputs: [
+                {
+                  components: [
+                    {
+                      internalType: "string",
+                      name: "studentId",
+                      type: "string",
+                    },
+                    {
+                      internalType: "string",
+                      name: "name",
+                      type: "string",
+                    },
+                    {
+                      internalType: "string",
+                      name: "email",
+                      type: "string",
+                    },
+                    {
+                      internalType: "string",
+                      name: "cicd",
+                      type: "string",
+                    },
+                    {
+                      internalType: "address",
+                      name: "walletAddress",
+                      type: "address",
+                    },
+                  ],
+                  internalType: "struct Student[]",
+                  name: "",
+                  type: "tuple[]",
+                },
+              ],
+              stateMutability: "view",
               type: "function",
             },
             {
@@ -176,46 +243,24 @@ const contracts = {
                       type: "string",
                     },
                     {
+                      internalType: "bool",
+                      name: "hasDisbursed",
+                      type: "bool",
+                    },
+                    {
                       internalType: "address[]",
-                      name: "donators",
+                      name: "funders",
                       type: "address[]",
                     },
                     {
                       internalType: "uint256[]",
-                      name: "donations",
+                      name: "funds",
                       type: "uint256[]",
                     },
                     {
-                      components: [
-                        {
-                          internalType: "string",
-                          name: "name",
-                          type: "string",
-                        },
-                        {
-                          internalType: "string",
-                          name: "studentId",
-                          type: "string",
-                        },
-                        {
-                          internalType: "string",
-                          name: "email",
-                          type: "string",
-                        },
-                        {
-                          internalType: "string",
-                          name: "cicd",
-                          type: "string",
-                        },
-                        {
-                          internalType: "address",
-                          name: "walletAddress",
-                          type: "address",
-                        },
-                      ],
-                      internalType: "struct Student[]",
-                      name: "students",
-                      type: "tuple[]",
+                      internalType: "address[]",
+                      name: "receivers",
+                      type: "address[]",
                     },
                   ],
                   internalType: "struct Campaign[]",
@@ -234,7 +279,7 @@ const contracts = {
                   type: "uint256",
                 },
               ],
-              name: "getDonators",
+              name: "getFunders",
               outputs: [
                 {
                   internalType: "address[]",
@@ -271,18 +316,37 @@ const contracts = {
                   type: "uint256",
                 },
               ],
-              name: "getStudentOfCampaign",
+              name: "getReceiversOfCampaign",
+              outputs: [
+                {
+                  internalType: "address[]",
+                  name: "",
+                  type: "address[]",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "_walletAddress",
+                  type: "address",
+                },
+              ],
+              name: "getStudentByAddress",
               outputs: [
                 {
                   components: [
                     {
                       internalType: "string",
-                      name: "name",
+                      name: "studentId",
                       type: "string",
                     },
                     {
                       internalType: "string",
-                      name: "studentId",
+                      name: "name",
                       type: "string",
                     },
                     {
@@ -301,9 +365,9 @@ const contracts = {
                       type: "address",
                     },
                   ],
-                  internalType: "struct Student[]",
+                  internalType: "struct Student",
                   name: "",
-                  type: "tuple[]",
+                  type: "tuple",
                 },
               ],
               stateMutability: "view",
@@ -326,39 +390,34 @@ const contracts = {
               inputs: [
                 {
                   internalType: "string",
-                  name: "",
+                  name: "_name",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "_studentId",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "_email",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "_cicd",
                   type: "string",
                 },
               ],
-              name: "students",
+              name: "registerStudent",
               outputs: [
                 {
-                  internalType: "string",
-                  name: "name",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "studentId",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "email",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "cicd",
-                  type: "string",
-                },
-                {
-                  internalType: "address",
-                  name: "walletAddress",
-                  type: "address",
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
                 },
               ],
-              stateMutability: "view",
+              stateMutability: "nonpayable",
               type: "function",
             },
             {
@@ -369,39 +428,12 @@ const contracts = {
                   type: "uint256",
                 },
                 {
-                  components: [
-                    {
-                      internalType: "string",
-                      name: "name",
-                      type: "string",
-                    },
-                    {
-                      internalType: "string",
-                      name: "studentId",
-                      type: "string",
-                    },
-                    {
-                      internalType: "string",
-                      name: "email",
-                      type: "string",
-                    },
-                    {
-                      internalType: "string",
-                      name: "cicd",
-                      type: "string",
-                    },
-                    {
-                      internalType: "address",
-                      name: "walletAddress",
-                      type: "address",
-                    },
-                  ],
-                  internalType: "struct Student[]",
-                  name: "_students",
-                  type: "tuple[]",
+                  internalType: "address[]",
+                  name: "_receivers",
+                  type: "address[]",
                 },
               ],
-              name: "updateStudentsOfCampaign",
+              name: "updateReceiversOfCampaign",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
