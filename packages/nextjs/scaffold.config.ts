@@ -9,9 +9,11 @@ export type ScaffoldConfig = {
   walletAutoConnect: boolean;
 };
 
+const DEVELOPMENT_MODE: boolean = process.env.NEXT_PUBLIC_DEVELOPMENT_MODE === "true";
+
 const scaffoldConfig = {
   // The network where your DApp lives in
-  targetNetwork: chains.hardhat,
+  targetNetwork: DEVELOPMENT_MODE ? chains.hardhat : chains.goerli,
 
   // The interval at which your front-end polls the RPC servers for new data
   // it has no effect on the local network

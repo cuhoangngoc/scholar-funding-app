@@ -38,8 +38,10 @@ export default function CreateCampaigns() {
       }
     });
   };
-  const now = new Date();
-  const min = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+
+  // at least 3 days from now
+  const date = new Date().getTime() + 86400000 * 3;
+  const min = new Date(date).toISOString().slice(0, 10);
   return (
     <>
       <Head>
@@ -71,8 +73,8 @@ export default function CreateCampaigns() {
           </div>
 
           <FormField
-            labelName="Story *"
-            placeholder="Write your story"
+            labelName="Description *"
+            placeholder="Why you need this campaign?"
             isTextArea
             value={form.description}
             handleChange={e => handleFormFieldChange("description", e)}
