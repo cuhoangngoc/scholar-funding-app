@@ -15,6 +15,7 @@ import {
 import { Address, Balance, BlockieAvatar } from "~~/components/scaffold-eth";
 import { useAutoConnect, useNetworkColor } from "~~/hooks/scaffold-eth";
 import { getBlockExplorerAddressLink, getTargetNetwork } from "~~/utils/scaffold-eth";
+import { signOut } from "next-auth/react";
 
 /**
  * Custom Wagmi Connect Button (watch balance + custom design)
@@ -73,7 +74,10 @@ export const RainbowKitCustomConnectButton = () => {
                         <button
                           className="menu-item text-error btn-sm !rounded-xl"
                           type="button"
-                          onClick={() => disconnect()}
+                          onClick={() => {
+                            disconnect();
+                            signOut();
+                          }}
                         >
                           <ArrowLeftOnRectangleIcon className="h-6 w-4 ml-2 sm:ml-0" /> <span>Disconnect</span>
                         </button>
